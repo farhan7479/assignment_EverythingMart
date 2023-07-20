@@ -11,6 +11,6 @@ const orderSchema = new mongoose.Schema({
   unitPrice: { type: Number, required: true },
 });
 
-const Order = mongoose.model('Order', orderSchema);
+const Order = mongoose.model('Orders2', orderSchema);
 
 module.exports = Order;

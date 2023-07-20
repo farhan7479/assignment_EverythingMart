@@ -41,17 +41,25 @@ const getAllOrders = async (req, res) => {
     const orders = await Order.aggregate([
       {
         $group: {
-          _id: '$orderId',
+          _id: { orderId: '$orderId', date: '$date' },
           customerName: { $first: '$customerName' },
           totalAmount: { $sum: { $multiply: ['$quantity', '$unitPrice'] } },
+          items: {
+            $push: {
+              name: '$product',
+              cost: { $multiply: ['$quantity', '$unitPrice'] },
+            },
+          },
         },
       },
       {
         $project: {
           _id: 0,
-          orderId: '$_id',
+          orderId: '$_id.orderId',
+          date: '$_id.date',
           customerName: 1,
           totalAmount: 1,
+          items: 1,
         },
       },
     ]);
