@@ -5,7 +5,7 @@ const path = require("path");
 const orderController = require('../controllers/orderController.js');
 
 router.use(express.static(path.resolve(__dirname, 'public')));
-router.use(express.json());
+
 
 // Configure Multer for file upload
 const storage = multer.diskStorage({
